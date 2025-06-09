@@ -1,18 +1,17 @@
 import requests
 import time
 from datetime import datetime
+import os
 
-# Lista de servidores para monitorar
 servidores = [
-    {"nome": "ninety", "url": "http://dns.phaptom.shop/get.php?username=58804112&password=50872250&type=m3u_plus&output=mpegts"},
-    {"nome": "uniplay", "url": "http://venombite.top/get.php?username=303863753&password=D144S6660c&type=m3u_plus&output=hls"},
-    {"nome": "elite", "url": "http://ufcc.asia/get.php?username=vinagikev&password=PX56AW7X2AP8&type=m3u_plus&output=ts"},
-    {"nome": "club", "url": "http://xwkhb.info/get.php?username=TccDP3zF&password=Xw7N7e&type=m3u_plus&output=ts"},
-    {"nome": "five", "url": "http://cdn4k.live/get.php?username=kjagayan&password=k96vjavkm&type=m3u_plus&output=ts"},
-    {"nome": "now", "url": "http://l.m3u4.xyz/3sfj35gj2"},
+    {"nome": "ninety", "url": os.getenv("NINETY_URL")},
+    {"nome": "uniplay", "url": os.getenv("UNIPLAY_URL")},
+    {"nome": "elite", "url": os.getenv("ELITE_URL")},
+    {"nome": "club", "url": os.getenv("CLUB_URL")},
+    {"nome": "five", "url": os.getenv("FIVE_URL")},
+    {"nome": "now", "url": os.getenv("NOW_URL")},
 ]
 
-# Caminho para o arquivo de log
 LOG_FILE = "monitoramento.log"
 
 def check_urls():
@@ -30,8 +29,7 @@ def check_urls():
             with open(LOG_FILE, "a") as log_file:
                 log_file.write(status + "\n")
 
-# Loop para rodar a cada 5 minutos
 print("Iniciando monitoramento...")
 while True:
     check_urls()
-    time.sleep(300)  # 300 segundos = 5 minutos
+    time.sleep(300)
